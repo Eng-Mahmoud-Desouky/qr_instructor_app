@@ -43,15 +43,27 @@ class LectureModel extends LectureEntity {
       _$LectureModelFromJson(json);
   Map<String, dynamic> toJson() => _$LectureModelToJson(this);
 
-  static String timeFromJson(Map<String, dynamic> json) {
-    // Convert {hour: 10, minute: 30...} to "10:30"
-    final h = json['hour'].toString().padLeft(2, '0');
-    final m = json['minute'].toString().padLeft(2, '0');
-    return '$h:$m';
+}
+  static String timeFromJson(dynamic json) {
+    if (json is String) {
+      // Logic for "08:00:00" -> "08:00"
+      final parts = json.split(':');
+      if (parts.length >= 2) {
+        return '${parts[0]}:${parts[1]}';
+      }
+      return json;
+    } else if (json is Map<String, dynamic>) {
+      // Convert {hour: 10, minute: 30...} to "10:30"
+      final h = json['hour'].toString().padLeft(2, '0');
+      final m = json['minute'].toString().padLeft(2, '0');
+      return '$h:$m';
+    }
+    return '';
   }
 
   static Map<String, dynamic> timeToJson(String time) {
     // Convert "10:30" to {hour: 10, minute: 30}
+    // We assume this format is required for POST requests based on 'RequestLecture' schema
     final parts = time.split(':');
     return {
       'hour': int.parse(parts[0]),
@@ -61,3 +73,4 @@ class LectureModel extends LectureEntity {
     };
   }
 }
+
