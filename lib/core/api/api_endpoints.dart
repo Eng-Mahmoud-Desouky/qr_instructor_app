@@ -1,6 +1,6 @@
 class ApiEndpoints {
   static const String baseUrl =
-      'https://smart-attendance-system-production-253e.up.railway.app';
+      'https://smart-attendance-system-production-253e.up.railway.app'; // Replace with your actual base URL
   static const Duration connectTimeout = Duration(milliseconds: 30000);
   static const Duration receiveTimeout = Duration(milliseconds: 30000);
 

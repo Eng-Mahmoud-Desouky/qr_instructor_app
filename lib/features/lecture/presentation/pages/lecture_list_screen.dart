@@ -70,7 +70,7 @@ class LectureListScreen extends StatelessWidget {
       context: context,
       builder: (dialogContext) {
         return StatefulBuilder(
-          builder: (context, setState) {
+          builder: (sbContext, setState) {
             return AlertDialog(
               title: const Text('Add Lecture'),
               content: Form(
@@ -98,7 +98,7 @@ class LectureListScreen extends StatelessWidget {
                       trailing: const Icon(Icons.calendar_today),
                       onTap: () async {
                         final picked = await showDatePicker(
-                          context: context,
+                          context: sbContext,
                           initialDate: DateTime.now(),
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2100),
@@ -112,12 +112,12 @@ class LectureListScreen extends StatelessWidget {
                       title: Text(
                         startTime == null
                             ? 'Select Start Time'
-                            : 'Start: ${startTime!.format(context)}',
+                            : 'Start: ${startTime!.format(sbContext)}',
                       ),
                       trailing: const Icon(Icons.access_time),
                       onTap: () async {
                         final picked = await showTimePicker(
-                          context: context,
+                          context: sbContext,
                           initialTime: TimeOfDay.now(),
                         );
                         if (picked != null) {
@@ -129,12 +129,12 @@ class LectureListScreen extends StatelessWidget {
                       title: Text(
                         endTime == null
                             ? 'Select End Time'
-                            : 'End: ${endTime!.format(context)}',
+                            : 'End: ${endTime!.format(sbContext)}',
                       ),
                       trailing: const Icon(Icons.access_time),
                       onTap: () async {
                         final picked = await showTimePicker(
-                          context: context,
+                          context: sbContext,
                           initialTime: TimeOfDay.now(),
                         );
                         if (picked != null) {
@@ -147,7 +147,7 @@ class LectureListScreen extends StatelessWidget {
               ),
               actions: [
                 TextButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () => Navigator.pop(sbContext),
                   child: const Text('Cancel'),
                 ),
                 TextButton(
@@ -192,9 +192,9 @@ class LectureListScreen extends StatelessWidget {
                       // calling logic might need to be outside or use the captured 'context' arg.
 
                       context.read<LectureCubit>().createLecture(newLecture);
-                      Navigator.pop(context);
+                      Navigator.pop(sbContext);
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      ScaffoldMessenger.of(sbContext).showSnackBar(
                         const SnackBar(content: Text('Please fill all fields')),
                       );
                     }

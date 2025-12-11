@@ -10,10 +10,8 @@ LectureModel _$LectureModelFromJson(Map<String, dynamic> json) => LectureModel(
   id: json['lectureId'] as String,
   courseId: json['courseId'] as String,
   lectureDate: json['lectureDate'] as String,
-  startTime: LectureModel.timeFromJson(
-    json['startTime'] as Map<String, dynamic>,
-  ),
-  endTime: LectureModel.timeFromJson(json['endTime'] as Map<String, dynamic>),
+  startTime: LectureModel.timeFromJson(json['startTime']),
+  endTime: LectureModel.timeFromJson(json['endTime']),
   room: json['room'] as String,
 );
 

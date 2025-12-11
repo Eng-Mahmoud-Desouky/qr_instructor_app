@@ -43,7 +43,6 @@ class LectureModel extends LectureEntity {
       _$LectureModelFromJson(json);
   Map<String, dynamic> toJson() => _$LectureModelToJson(this);
 
-}
   static String timeFromJson(dynamic json) {
     if (json is String) {
       // Logic for "08:00:00" -> "08:00"
@@ -73,4 +72,3 @@ class LectureModel extends LectureEntity {
     };
   }
 }
-

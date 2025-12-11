@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -57,7 +58,13 @@ class _QrGenerationScreenState extends State<QrGenerationScreen> {
     return BlocProvider.value(
       value: _cubit,
       child: Scaffold(
-        appBar: AppBar(title: const Text('Generate QR')),
+        appBar: AppBar(
+          title: const Text('Generate QR'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(32),
@@ -67,7 +74,12 @@ class _QrGenerationScreenState extends State<QrGenerationScreen> {
                   if (!_isGenerated) {
                     setState(() {
                       _isGenerated = true;
-                      _qrData = state.qrCode.uuidTokenHash;
+                      // Encode qrCodeId, uuidTokenHash, and lectureId as JSON
+                      _qrData = jsonEncode({
+                        'qrCodeId': state.qrCode.id,
+                        'uuidTokenHash': state.qrCode.uuidTokenHash,
+                        'lectureId': widget.lectureId,
+                      });
                     });
                     _startPolling();
                   }
